@@ -1,0 +1,53 @@
+{
+	"name": "pdm-task-provider",
+	"displayName": "PDM Task Provider",
+	"description": "Task provider for Python Development Master",
+	"version": "0.0.1",
+	"publisher": "knowsuchagency",
+	"engines": {
+		"vscode": "^1.45.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:workbench.action.tasks.runTask"
+	],
+	"main": "./out/extension",
+	"contributes": {
+		"taskDefinitions": [
+			{
+				"type": "pdm",
+				"required": [
+					"task"
+				],
+				"properties": {
+					"task": {
+						"type": "string",
+						"description": "The PDM task to customize"
+					},
+					"file": {
+						"type": "string",
+						"description": "The PDM file that provides the task. Can be omitted."
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -b",
+		"watch": "tsc -b -w"
+	},
+	"devDependencies": {
+		"@types/node": "^12.12.0",
+		"@types/vscode": "^1.45.0",
+		"@typescript-eslint/eslint-plugin": "^3.0.2",
+		"@typescript-eslint/parser": "^3.0.2",
+		"eslint": "^7.1.0",
+		"typescript": "^4.0.2"
+	},
+	"dependencies": {
+		"@iarna/toml": "^3.0.0"
+	}
+}
