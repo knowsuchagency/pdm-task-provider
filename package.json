@@ -4,6 +4,7 @@
 	"description": "Task provider for Python Development Master",
 	"version": "0.0.1",
 	"publisher": "knowsuchagency",
+	"repository": "https://github.com/knowsuchagency/pdm-task-provider",
 	"engines": {
 		"vscode": "^1.45.0"
 	},
