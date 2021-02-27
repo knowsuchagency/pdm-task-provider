@@ -2,3 +2,4 @@ out
 node_modules.history
 .history
 node_modules
+*.vsix

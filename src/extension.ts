@@ -6,7 +6,6 @@ import * as vscode from 'vscode';
 import { PDMTaskProvider } from './pdmTaskProvider';
 
 let pdmTaskProvider: vscode.Disposable | undefined;
-let customTaskProvider: vscode.Disposable | undefined;
 
 export function activate(_context: vscode.ExtensionContext): void {
 	const workspaceRoot = vscode.workspace.rootPath;
