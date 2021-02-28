@@ -1,6 +1,9 @@
 # PDM Task Provider
 
+[Marketplace Link](https://marketplace.visualstudio.com/items?itemName=knowsuchagency.pdm-task-provider)
+
 [**Task**][tasks] provider for [**pdm**][pdm].
+
 
 [pyproject.toml]
 ```
