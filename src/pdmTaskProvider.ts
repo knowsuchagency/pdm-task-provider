@@ -42,13 +42,11 @@ let infoChannel: vscode.OutputChannel = vscode.window.createOutputChannel(
   "pdm task provider info"
 );
 
-infoChannel.show(true);
+// infoChannel.show(true);
 
 let errorChannel: vscode.OutputChannel = vscode.window.createOutputChannel(
   "pdm task provider error"
 );
-
-errorChannel.show(true);
 
 function info(message: string) {
   console.info(message);
@@ -57,6 +55,7 @@ function info(message: string) {
 
 function error(message: string) {
   console.error(message);
+  errorChannel.show(true);
   errorChannel.appendLine(message);
 }
 
@@ -97,6 +96,7 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
         error(err.message);
       } else {
         info("pyproject.toml opened");
+        info(data);
         fileData = data;
       }
     });
