@@ -88,18 +88,24 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
       continue;
     }
 
-    let fileData: string = "";
+    // var fileData: string = "";
 
-    fs.readFile(pyprojectTomlFile, "utf8", (err, data) => {
-      if (err) {
-        console.log(err);
-        error(err.message);
-      } else {
-        info("pyproject.toml opened");
-        info(data);
-        fileData = data;
-      }
-    });
+    // fs.readFile(pyprojectTomlFile, "utf8", (err, data) => {
+    //   if (err) {
+    //     console.log(err);
+    //     error(err.message);
+    //   } else {
+    //     info("pyproject.toml opened");
+    //     info(data);
+    //     fileData = data;
+    //   }
+    // });
+
+    const fileData = fs.readFileSync(pyprojectTomlFile, { encoding: "utf8" });
+
+    info("read file data");
+
+    info(fileData);
 
     if (!fileData) {
       error("unable to open pyproject.toml");
