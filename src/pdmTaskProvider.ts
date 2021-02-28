@@ -38,14 +38,26 @@ export class PDMTaskProvider implements vscode.TaskProvider {
   }
 }
 
-let _channel: vscode.OutputChannel;
-function getOutputChannel(): vscode.OutputChannel {
-  if (!_channel) {
-    _channel = vscode.window.createOutputChannel(
-      "PDM pyproject.toml Auto Detection"
-    );
-  }
-  return _channel;
+let infoChannel: vscode.OutputChannel = vscode.window.createOutputChannel(
+  "pdm task provider info"
+);
+
+infoChannel.show(true);
+
+let errorChannel: vscode.OutputChannel = vscode.window.createOutputChannel(
+  "pdm task provider error"
+);
+
+errorChannel.show(true);
+
+function info(message: string) {
+  console.info(message);
+  infoChannel.appendLine(message);
+}
+
+function error(message: string) {
+  console.error(message);
+  errorChannel.appendLine(message);
 }
 
 interface PDMTaskDefinition extends vscode.TaskDefinition {
@@ -73,7 +85,7 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
     }
     const pyprojectTomlFile = path.join(folderString, "pyproject.toml");
     if (!fs.existsSync(pyprojectTomlFile)) {
-      console.error("no pyproject.toml detected");
+      error("no pyproject.toml detected");
       continue;
     }
 
@@ -82,16 +94,15 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
     fs.readFile(pyprojectTomlFile, "utf8", (err, data) => {
       if (err) {
         console.log(err);
-        getOutputChannel().appendLine(err.message);
-        getOutputChannel().show(true);
+        error(err.message);
       } else {
-        console.info("pyproject.toml opened");
+        info("pyproject.toml opened");
         fileData = data;
       }
     });
 
     if (!fileData) {
-      console.error("unable to open pyproject.toml");
+      error("unable to open pyproject.toml");
       continue;
     }
 
@@ -100,7 +111,7 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
     for (const command in parsed.tool.pdm.scripts) {
       const isCommandAttribute: boolean = !["_", "env_file"].includes(command);
       if (isCommandAttribute) {
-        console.info(`pdm command found: ${command}`);
+        info(`pdm command found: ${command}`);
         const taskName = command;
         const kind: PDMTaskDefinition = {
           type: "pdm",
