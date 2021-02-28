@@ -99,16 +99,17 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
       if (isCommandAttribute) {
         info(`pdm command found: ${command}`);
         const taskName = command;
-        const kind: PDMTaskDefinition = {
+        const taskDefinition: PDMTaskDefinition = {
           type: "pdm",
           task: taskName,
         };
         const task = new vscode.Task(
-          kind,
+          taskDefinition,
           workspaceFolder,
           taskName,
           "pdm",
-          new vscode.ShellExecution(`pdm run ${taskName}`)
+          new vscode.ShellExecution(`pdm run ${taskName}`),
+          []
         );
         result.push(task);
       }
