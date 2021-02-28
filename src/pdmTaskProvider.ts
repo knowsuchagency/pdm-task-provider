@@ -38,25 +38,19 @@ export class PDMTaskProvider implements vscode.TaskProvider {
   }
 }
 
-let infoChannel: vscode.OutputChannel = vscode.window.createOutputChannel(
-  "pdm task provider info"
-);
-
-// infoChannel.show(true);
-
-let errorChannel: vscode.OutputChannel = vscode.window.createOutputChannel(
-  "pdm task provider error"
+let channel: vscode.OutputChannel = vscode.window.createOutputChannel(
+  "PDM Task Provider"
 );
 
 function info(message: string) {
   console.info(message);
-  infoChannel.appendLine(message);
+  channel.appendLine(message);
 }
 
 function error(message: string) {
   console.error(message);
-  errorChannel.show(true);
-  errorChannel.appendLine(message);
+  channel.show(true);
+  channel.appendLine(message);
 }
 
 interface PDMTaskDefinition extends vscode.TaskDefinition {
@@ -88,24 +82,10 @@ async function getPdmTasks(): Promise<vscode.Task[]> {
       continue;
     }
 
-    // var fileData: string = "";
-
-    // fs.readFile(pyprojectTomlFile, "utf8", (err, data) => {
-    //   if (err) {
-    //     console.log(err);
-    //     error(err.message);
-    //   } else {
-    //     info("pyproject.toml opened");
-    //     info(data);
-    //     fileData = data;
-    //   }
-    // });
 
     const fileData = fs.readFileSync(pyprojectTomlFile, { encoding: "utf8" });
 
-    info("read file data");
-
-    info(fileData);
+    info("opened pyproject.toml");
 
     if (!fileData) {
       error("unable to open pyproject.toml");

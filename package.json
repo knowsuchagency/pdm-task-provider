@@ -2,9 +2,10 @@
 	"name": "pdm-task-provider",
 	"displayName": "PDM Task Provider",
 	"description": "Task provider for Python Development Master",
-	"version": "0.0.5",
+	"version": "0.9.0",
 	"publisher": "knowsuchagency",
 	"repository": "https://github.com/knowsuchagency/pdm-task-provider",
+	"icon": "static/python_icon.png",
 	"engines": {
 		"vscode": "^1.45.0"
 	},
