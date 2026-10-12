@@ -5,22 +5,13 @@
 import * as vscode from "vscode";
 import { PDMTaskProvider } from "./pdmTaskProvider";
 
-let pdmTaskProvider: vscode.Disposable | undefined;
-
-export function activate(_context: vscode.ExtensionContext): void {
-  const workspaceRoot = vscode.workspace.rootPath;
-  if (!workspaceRoot) {
-    return;
-  }
-
-  pdmTaskProvider = vscode.tasks.registerTaskProvider(
-    PDMTaskProvider.PDMType,
-    new PDMTaskProvider(workspaceRoot)
+export function activate(context: vscode.ExtensionContext): void {
+  context.subscriptions.push(
+    vscode.tasks.registerTaskProvider(
+      PDMTaskProvider.PDMType,
+      new PDMTaskProvider(context)
+    )
   );
 }
 
-export function deactivate(): void {
-  if (pdmTaskProvider) {
-    pdmTaskProvider.dispose();
-  }
-}
+export function deactivate(): void {}
