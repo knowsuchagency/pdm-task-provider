@@ -21,6 +21,11 @@ start_server = "flask run -p 54321"
 ### Select Task from pyproject.toml
 ![](static/pdm_tasks.png)
 
+### Run a script from pyproject.toml
+
+Each script under `[tool.pdm.scripts]` gets a **Run** button above it in `pyproject.toml`.
+Turn it off with `"pdmTaskProvider.codeLens": false`.
+
 ### Running pdm through a wrapper
 
 If pdm isn't on your `PATH`, set `pdmTaskProvider.pdmCommand` to the command that runs it,

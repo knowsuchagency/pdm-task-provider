@@ -2,7 +2,7 @@
 	"name": "pdm-task-provider",
 	"displayName": "PDM Task Provider",
 	"description": "Task provider for Python Development Master",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"publisher": "knowsuchagency",
 	"repository": "https://github.com/knowsuchagency/pdm-task-provider",
 	"icon": "static/python_icon.png",
@@ -13,7 +13,9 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:workbench.action.tasks.runTask"
+		"onCommand:workbench.action.tasks.runTask",
+		"onCommand:pdmTaskProvider.runScript",
+		"workspaceContains:**/pyproject.toml"
 	],
 	"main": "./out/extension",
 	"contributes": {
@@ -43,6 +45,12 @@
 					"default": "",
 					"scope": "resource",
 					"markdownDescription": "Command used to invoke pdm, e.g. `./pw pdm` or `python -m pdm`. When empty, `./pw pdm` (`.\\pw.bat pdm` on Windows) is used if the project has a [pyprojectx](https://pyprojectx.github.io) `pw` wrapper, otherwise `pdm`."
+				},
+				"pdmTaskProvider.codeLens": {
+					"type": "boolean",
+					"default": true,
+					"scope": "resource",
+					"description": "Show a Run button above each script in [tool.pdm.scripts] in pyproject.toml."
 				}
 			}
 		}
@@ -50,7 +58,8 @@
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
 		"compile": "tsc -b",
-		"watch": "tsc -b -w"
+		"watch": "tsc -b -w",
+		"test": "npm run compile && node out/test/scriptLocations.test.js"
 	},
 	"devDependencies": {
 		"@types/node": "^12.12.0",
