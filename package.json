@@ -30,11 +30,22 @@
 					},
 					"file": {
 						"type": "string",
-						"description": "The PDM file that provides the task. Can be omitted."
+						"description": "The pyproject.toml that provides the task, relative to the workspace folder. Can be omitted."
 					}
 				}
 			}
-		]
+		],
+		"configuration": {
+			"title": "PDM Task Provider",
+			"properties": {
+				"pdmTaskProvider.pdmCommand": {
+					"type": "string",
+					"default": "",
+					"scope": "resource",
+					"markdownDescription": "Command used to invoke pdm, e.g. `./pw pdm` or `python -m pdm`. When empty, `./pw pdm` (`.\\pw.bat pdm` on Windows) is used if the project has a [pyprojectx](https://pyprojectx.github.io) `pw` wrapper, otherwise `pdm`."
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
